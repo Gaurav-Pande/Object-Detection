@@ -5,9 +5,10 @@ This repo is about one of the algorithm studied as part of Deep learning project
 YOLO object detection in pytorch.
 
 [TODO]Things need to be done:
-* Make it minimalistic
-* add real time object detection 
-* add mobile support
+* Make it minimalistic for YOLO
+* Add real time object detection 
+* Add mobile support
+* Captions in the figures
 
 References: Pytorch-Yolov3
 
