@@ -88,3 +88,8 @@ AP (Average Precision) for different classes of the pretrained Yolo model on COC
 <center>
 <img src="assets/result.png"/>
 </center>
+
+Detailed PDF report for this project can be found [here](https://github.com/Gaurav-Pande/Object-Detection/blob/master/assets/Deep_Learning_Project.pdf)
+
+# References
+* https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/
