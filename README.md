@@ -9,6 +9,7 @@ Things need to be done:
 
 References: Pytorch-Yolov3
 
+Object detection is a subset in computer vision which deals with automatic methods for identifying objects of interests in an image with respect to the background. In this repo we will implement and understand how YOLOv3 works.
 
 # YOLOv3
 
