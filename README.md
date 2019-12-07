@@ -3,7 +3,8 @@
 This repo is about one of the algorithm studied as part of Deep learning project CS7643.
 
 YOLO object detection in pytorch.
-Things need to be done:
+
+[TODO]Things need to be done:
 * Make it minimalistic
 * add real time object detection 
 * add mobile support
@@ -23,7 +24,12 @@ Unlike many other object detection system, such as R-CNN, YOLO frames object det
 
 In a very high level this is how YOLO works:
 
-Consider the below figure [TODO]
+Consider the below figure
+
+<center>
+<img src="assets/yolo_basic.png"/>
+</center>
+
 1. Divide the image into multiple grids.
 2. Each cell gives 3 boxes in feature maps like shown in the figure: b1,b2,b3. These boxes are chosen using k means algorithm   considering the scale, size, aspect ratio into consideration.
 3. Each box is responsible for spitting out 3 things: 
@@ -31,8 +37,12 @@ Consider the below figure [TODO]
      is the probable box containing the object.
   2. Objectness score represents the probability that an object is contained inside a bounding box. It should be nearly 1 for      the red and the neighboring grids, whereas almost 0 for, say, the grid at the corners.
   3. Class confidences represent the probabilities of the detected object belonging to a particular class (Dog, cat, banana,        car etc). Before v3, YOLO used to softmax the class scores.
-  
-  For more clarity we can see in the figure([TODO]) that we can see that if the center of the object's ground truth bounding box falls in a certain grid cell(i.e. the red one on the bird image),  this grid cell is responsible for predicting the object's bounding box. The corresponding objectness score is "1" for this grid cell and "0" for others. For each grid cell, it is assigned with 3 prior boxes of different sizes(these boxes are created using K means algorithm). What it learns during training is to choose the right box and calculate precise offset/coordinate. But how does the grid cell know which box to choose? There is a rule that it only chooses the box that overlaps ground truth bounding box most using the Intersection over union value.
+
+<center>
+<img src="assets/yolo.png"/>
+</center>
+
+  For more clarity we can see in the above figure that we can see that if the center of the object's ground truth bounding box falls in a certain grid cell(i.e. the red one on the bird image),  this grid cell is responsible for predicting the object's bounding box. The corresponding objectness score is "1" for this grid cell and "0" for others. For each grid cell, it is assigned with 3 prior boxes of different sizes(these boxes are created using K means algorithm). What it learns during training is to choose the right box and calculate precise offset/coordinate. But how does the grid cell know which box to choose? There is a rule that it only chooses the box that overlaps ground truth bounding box most using the Intersection over union value.
   
 YOLOv3 uses 75 convolution layer, with skip connections, and upsampling layers. There is no pooling done in YOLO, and stride of 2 is used to downsample the features maps. This downsampling helps in reducing the loss which is attributed to pooling.Being a fully convolution network the YOLO is invariant to the size of the input. The loss function in YOLO has multiple parts:
 
@@ -42,10 +52,15 @@ YOLOv3 uses 75 convolution layer, with skip connections, and upsampling layers. 
 
 
 ## Dataset
-For training I used Microsoft COCO datase\cite{coco}. But since YOLO is incompatible with the coco dataset as it uses the darknet for the backbone network, we used only 2014 coco dataset. The training data was Augumented with horizontal flip only, and no data augmentation is done on the test set. The result can be seen in Fig.
+For training I used Microsoft COCO datase\cite{coco}. But since YOLO is incompatible with the coco dataset as it uses the darknet for the backbone network, we used only 2014 coco dataset. The training data was Augumented with horizontal flip only, and no data augmentation is done on the test set. The result can be seen in qualitative results section.
+
 
 ## Training
-We utilized the Pretrained network on COCO dataset using Darknet. Due to time and compute constraints We did not trained on the full 113000 images of the dataset, rather we used a subset of 35,000 images, with 80 classes of object detection. In Fig[TODO], we can see how the loss curve started to fall down with the step size. We trained the model for 50 epochs, with batch size of 8, with momentum=0.9, decay=0.0005, iou-threshold=0.5.
+We utilized the Pretrained network on COCO dataset using Darknet. Due to time and compute constraints We did not trained on the full 113000 images of the dataset, rather we used a subset of 35,000 images, with 80 classes of object detection. In the Figure below, we can see how the loss curve started to fall down with the step size. We trained the model for 50 epochs, with batch size of 8, with momentum=0.9, decay=0.0005, iou-threshold=0.5.
+
+<center>
+<img src="assets/loss.png"/>
+</center>
 
 ## Validation
 We used the COCO validation set of 5000 images for validation. The mean average precision we got is 0.58, with detecting all the classes. We can see the results for some of the classes in Table 2.
@@ -70,3 +85,6 @@ AP (Average Precision) for different classes of the pretrained Yolo model on COC
 
 # Qualitative Result
 
+<center>
+<img src="assets/result.png"/>
+</center>
