@@ -39,7 +39,7 @@ Consider the below figure
   3. Class confidences represent the probabilities of the detected object belonging to a particular class (Dog, cat, banana,        car etc). Before v3, YOLO used to softmax the class scores.
 
 <center>
-<img src="assets/yolo.png"/>
+ <img src="assets/yolo.png"/>
 </center>
 
   For more clarity we can see in the above figure that we can see that if the center of the object's ground truth bounding box falls in a certain grid cell(i.e. the red one on the bird image),  this grid cell is responsible for predicting the object's bounding box. The corresponding objectness score is "1" for this grid cell and "0" for others. For each grid cell, it is assigned with 3 prior boxes of different sizes(these boxes are created using K means algorithm). What it learns during training is to choose the right box and calculate precise offset/coordinate. But how does the grid cell know which box to choose? There is a rule that it only chooses the box that overlaps ground truth bounding box most using the Intersection over union value.
